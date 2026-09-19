@@ -22,8 +22,8 @@ importers:
         specifier: ^19.2.14
         version: 19.3.0
       '@withwiz/sms-core':
-        specifier: link:../withwiz-sms-core
-        version: link:../withwiz-sms-core
+        specifier: ^0.1.0
+        version: 0.1.0
       jsdom:
         specifier: ^26.1.0
         version: 26.1.0
@@ -813,6 +813,15 @@ packages:
 
   '@vitest/utils@4.1.11':
     resolution: {integrity: sha512-zTCVGpyFsGWBhllOyKlTw/vnr6D9qxsfSDyfbyZmTyjHw5N/VuvzHpHoQjm2ZJzn4RJgx5w4r7V0er69CmLgPQ==}
+
+  '@withwiz/sms-core@0.1.0':
+    resolution: {integrity: sha512-gQ10XeW83iiSGzp37iDFGwfOnKD4hYwiHWJQrlqytHPgYjELhLzBxV6X1kkmvngz88sfCSIQyglUmKVkQ4c55A==}
+    engines: {node: '>=20.9.0'}
+    peerDependencies:
+      solapi: '>=5'
+    peerDependenciesMeta:
+      solapi:
+        optional: true
 
   acorn@8.18.0:
     resolution: {integrity: sha512-lGq+9yr1/GuAWaVYIHRjvvySG5/4VfKIvC8EWxStPdcDh/Ka7FG3twP6v4d5BkravUilhIAsG4Qj83t02LWUPQ==}
@@ -1988,6 +1997,8 @@ snapshots:
       '@vitest/pretty-format': 4.1.11
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.1
+
+  '@withwiz/sms-core@0.1.0': {}
 
   acorn@8.18.0: {}
 
