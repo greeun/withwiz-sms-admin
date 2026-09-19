@@ -1,0 +1,69 @@
+{
+  "name": "@withwiz/sms-admin",
+  "version": "0.1.0",
+  "description": "SMS delivery history and template management service with admin UI",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./facade": {
+      "types": "./dist/facade/index.d.ts",
+      "import": "./dist/facade/index.mjs",
+      "require": "./dist/facade/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.mjs",
+      "require": "./dist/components/index.js"
+    },
+    "./constants": {
+      "types": "./dist/constants/index.d.ts",
+      "import": "./dist/constants/index.mjs",
+      "require": "./dist/constants/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": ["dist", "prisma", "README.md", "README.ko.md"],
+  "engines": { "node": ">=20.9.0" },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "@prisma/client": ">=6",
+    "@withwiz/sms-core": ">=0.1.0",
+    "react": ">=18",
+    "sonner": ">=2"
+  },
+  "peerDependenciesMeta": {
+    "sonner": { "optional": true }
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^22.19.18",
+    "@types/react": "^19.2.14",
+    "@withwiz/sms-core": "link:../withwiz-sms-core",
+    "jsdom": "^26.1.0",
+    "next": "^16.3.3",
+    "react": "^19.2.0",
+    "sonner": "^2.0.7",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
+  }
+}

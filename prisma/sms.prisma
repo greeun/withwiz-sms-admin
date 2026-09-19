@@ -1,0 +1,54 @@
+// ── SMS delivery history ──
+model SmsMessage {
+  id           String   @id @default(cuid())
+  type         String // "SMS" | "LMS" | "MMS"
+  subject      String?
+  content      String   @db.Text
+  imageUrl     String?  @map("image_url")
+  sender       String
+  totalCount   Int      @map("total_count")
+  successCount Int?     @map("success_count")
+  failCount    Int?     @map("fail_count")
+  status       String   @default("PENDING") // PENDING | SENT | FAILED
+  errCode      String?  @map("err_code") // provider status code on failure (e.g. Aligo -201)
+  errMessage   String?  @map("err_message") @db.Text // failure reason message
+  source       String? // "briefing" | "consultation" etc.
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  recipients SmsRecipient[]
+
+  @@index([createdAt(sort: Desc)])
+  @@index([source])
+  @@map("sms_messages")
+}
+
+// ── SMS recipients ──
+model SmsRecipient {
+  id        String   @id @default(cuid())
+  messageId String   @map("message_id")
+  name      String
+  phone     String
+  status    String   @default("PENDING") // PENDING | SENT | FAILED
+  createdAt DateTime @default(now()) @map("created_at")
+
+  message SmsMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([messageId])
+  @@map("sms_recipients")
+}
+
+// ── SMS templates ──
+model SmsTemplate {
+  id        String   @id @default(cuid())
+  name      String
+  type      String // "SMS" | "LMS" | "MMS"
+  subject   String?
+  content   String   @db.Text
+  imageUrl  String?  @map("image_url")
+  isSystem  Boolean  @default(false) @map("is_system") // true=built-in (seeded), false=user-added
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([createdAt(sort: Desc)])
+  @@map("sms_templates")
+}

@@ -1,0 +1,85 @@
+# dependencies
+node_modules/
+
+# this package uses pnpm; lockfiles from other package managers are not tracked
+package-lock.json
+yarn.lock
+
+# build output
+dist/
+*.tsbuildinfo
+
+# test coverage
+coverage/
+.nyc_output/
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+logs/
+
+# env files
+.env*
+!.env*.example
+!.env*.template
+
+# editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# superpowers (auto-installed; do not track)
+.superpowers/
+docs/superpowers/
+
+# claude code (instruction docs, local settings, session worktrees, auto-installed skills, MCP config)
+CLAUDE.md
+.claude/
+.claude.json
+.claude.json.*
+.claude-*.json
+
+# axt local profiles (backups included)
+.axt/
+.axt*
+
+# ast (agent session tracker) local output
+.ast/
+.ast*
+
+# Added by github-init
+
+# build output
+build/
+.next/
+out/
+
+# logs
+yarn-error.log*
+
+# caches
+.cache/
+.turbo/
+.eslintcache
+
+# this project uses pnpm (pnpm-lock.yaml); other lockfiles are strays
+bun.lockb
+
+# axt local profile (including backups)
+.axt-*
+.axt.*
+
+# ast (agent session tracker) local state
+.ast-*
+.ast.*
+
+# exceptions restated so the rules above cannot cancel them
+!.env*.example
+!.env*.template
