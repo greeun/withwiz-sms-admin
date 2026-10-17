@@ -1,6 +1,6 @@
 {
   "name": "@withwiz/sms-admin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SMS delivery history and template management service with admin UI",
   "license": "MIT",
   "main": "./dist/index.js",
