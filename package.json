@@ -38,6 +38,7 @@
   },
   "files": ["dist", "prisma", "README.md", "README.ko.md"],
   "engines": { "node": ">=20.9.0" },
+  "packageManager": "pnpm@11.24.0",
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
