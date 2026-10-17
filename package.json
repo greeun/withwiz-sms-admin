@@ -3,6 +3,14 @@
   "version": "0.1.1",
   "description": "SMS delivery history and template management service with admin UI",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greeun/withwiz-sms-admin.git"
+  },
+  "homepage": "https://github.com/greeun/withwiz-sms-admin#readme",
+  "bugs": {
+    "url": "https://github.com/greeun/withwiz-sms-admin/issues"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
