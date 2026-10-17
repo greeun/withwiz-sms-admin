@@ -1,0 +1,71 @@
+name: Release
+
+# Publishing goes through npm trusted publishing (OIDC), so no npm token is
+# stored here. The trust relationship is configured on the package settings
+# page at npmjs.com and names this repository and this workflow file.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  # Lets the job mint the OIDC token npm exchanges for publish credentials.
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
+      # Trusted publishing needs Node 22.14 or later; the 22 line satisfies it.
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests
+        run: pnpm run test
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Verify tag matches package version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$pkg" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package version $pkg" >&2
+            exit 1
+          fi
+
+      # A version already on the registry cannot be republished. Skipping keeps
+      # the run green for tags whose version was published by hand.
+      - name: Check whether the version is already on npm
+        id: registry
+        run: |
+          name="$(node -p "require('./package.json').name")"
+          version="$(node -p "require('./package.json').version")"
+          if npm view "$name@$version" version > /dev/null 2>&1; then
+            echo "Found $name@$version on the registry; publishing will be skipped."
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # No NODE_AUTH_TOKEN on purpose: the OIDC exchange only runs when no
+      # long-lived token is configured.
+      - name: Publish to npm
+        if: steps.registry.outputs.published == 'false'
+        run: pnpm publish --access public --provenance --no-git-checks
